@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sebastian · @El__Richy | Trader Algorítmico</title>
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https:;" />
+
+  <!-- SEO & Meta Tags -->
+  <meta name="description"
+    content="Algoritmos, mercados y estrategias reales. Todas las redes y recursos de Sebastian (@El__Richy), trader algorítmico e inversor." />
+  <meta name="author" content="Sebastian - @El__Richy" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sebastian · @El__Richy | Trader Algorítmico" />
+  <meta property="og:description"
+    content="Algoritmos, mercados y estrategias reales. Todas las redes y recursos de Sebastian (@El__Richy)." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80" />
+  <meta property="og:url" content="https://elrichy.com" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sebastian · @El__Richy | Trader Algorítmico" />
+  <meta name="twitter:description" content="Algoritmos, mercados y estrategias reales." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --gold: #f5a623;
+      --gold-light: #ffc557;
+      --gold-glow: rgba(245, 166, 35, 0.35);
+      --bg-deep: #08080f;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(245, 166, 35, 0.6);
+      --text: #e8e8f0;
+      --text-muted: #7a7a9a;
+      --radius: 16px;
+      --transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Partículas de fondo */
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Animaciones de entrada (Stagger) */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      opacity: 0;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245, 166, 35, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(120, 60, 200, 0.07) 0%, transparent 60%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px 60px;
+    }
+
+    /* ===========================
+       CONTAINER
+    =========================== */
+    .container {
+      width: 100%;
+      max-width: 460px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* ===========================
+       PROFILE
+    =========================== */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 110px;
+      height: 110px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gold), var(--gold-light), #e8b86d, var(--gold));
+      animation: spin-ring 6s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes spin-ring {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .avatar-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--bg-deep);
+      overflow: hidden;
+      z-index: 1;
+      background: #1a1a2e;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .profile-handle {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(245, 166, 35, 0.08);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      border-radius: 999px;
+      padding: 4px 12px;
+      letter-spacing: 0.4px;
+      margin-top: -4px;
+    }
+
+    .profile-badge i {
+      color: var(--gold);
+      font-size: 0.72rem;
+    }
+
+    .profile-bio {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.6;
+      max-width: 340px;
+    }
+
+    .profile-bio span {
+      color: var(--text);
+    }
+
+    /* ===========================
+       SECTION TITLE
+    =========================== */
+    .section-label {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      margin-top: 8px;
+    }
+
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-label span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+
+    /* ===========================
+       SOCIAL BUTTONS
+    =========================== */
+    .social-links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .btn-social {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 15px 22px;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      transition: background var(--transition), border-color var(--transition),
+        transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-social::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .btn-social:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 8px 30px var(--gold-glow);
+    }
+
+    .btn-social:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .btn-text-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .btn-label {
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .btn-subtext {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+    }
+
+    .btn-arrow {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: transform var(--transition), color var(--transition);
+    }
+
+    .btn-social:hover .btn-arrow {
+      transform: translateX(3px);
+      color: var(--gold);
+    }
+
+    /* Icon colors per platform */
+    .icon-instagram {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #f77737);
+      color: #fff;
+    }
+
+    .icon-twitter {
+      background: #000;
+      color: #fff;
+    }
+
+    .icon-telegram {
+      background: #229ed9;
+      color: #fff;
+    }
+
+    .icon-discord {
+      background: #5865f2;
+      color: #fff;
+    }
+
+    /* ===========================
+       BROKER GRID
+    =========================== */
+    .broker-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .btn-broker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 18px 12px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.1px;
+      transition: background var(--transition), border-color var(--transition),
+        transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .btn-broker .broker-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .btn-broker .broker-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-broker:hover {
+      background: rgba(245, 166, 35, 0.06);
+      border-color: rgba(245, 166, 35, 0.4);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(245, 166, 35, 0.15);
+    }
+
+    .btn-broker:active {
+      transform: scale(0.98);
+    }
+
+    /* Broker icon color themes */
+    .icon-exness {
+      background: rgba(0, 200, 150, 0.15);
+      color: #00c896;
+    }
+
+    .icon-pepper {
+      background: rgba(255, 90, 90, 0.15);
+      color: #ff5a5a;
+    }
+
+    .icon-ic {
+      background: rgba(50, 150, 255, 0.15);
+      color: #3296ff;
+    }
+
+    .icon-littio {
+      background: rgba(100, 220, 180, 0.15);
+      color: #64dcb4;
+    }
+
+    .icon-hapi {
+      background: rgba(130, 100, 255, 0.15);
+      color: #8264ff;
+    }
+
+    .icon-binance {
+      background: rgba(240, 185, 11, 0.15);
+      color: #f0b90b;
+    }
+
+    .icon-tv {
+      background: rgba(33, 150, 243, 0.15);
+      color: #2196f3;
+    }
+
+    .icon-nu {
+      background: rgba(130, 0, 255, 0.15);
+      color: #8200ff;
+    }
+
+    /* Full-width TradingView & NU special row */
+    .broker-full {
+      grid-column: span 1;
+    }
+
+    /* ===========================
+       DIVIDER
+    =========================== */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 4px 0 32px;
+    }
+
+    /* ===========================
+       FOOTER & DISCLAIMER
+    =========================== */
+    .disclaimer {
+      margin-top: 16px;
+      margin-bottom: 16px;
+      font-size: 0.68rem;
+      color: rgba(122, 122, 154, 0.7);
+      text-align: center;
+      line-height: 1.5;
+      max-width: 95%;
+      padding: 16px 16px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 400px) {
+      body {
+        padding: 36px 16px 50px;
+      }
+
+      .profile-name {
+        font-size: 1.6rem;
+      }
+
+      .btn-social {
+        padding: 13px 18px;
+        font-size: 0.95rem;
+      }
+
+      .broker-grid {
+        gap: 8px;
+      }
+
+      .btn-broker {
+        padding: 15px 10px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* ===========================
+       COPY CODE SYSTEM
+    =========================== */
+    .copy-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .copy-badge {
+      margin-top: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.15);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+      padding: 4px 12px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all var(--transition);
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .copy-badge:hover {
+      background: var(--gold);
+      color: var(--bg-deep);
+      transform: scale(1.05);
+    }
+
+    .copy-badge i {
+      font-size: 0.65rem;
+    }
+
+    /* Toast Notification */
+    #toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #1a1a2e;
+      color: var(--gold);
+      text-align: center;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      padding: 12px 24px;
+      position: fixed;
+      z-index: 1000;
+      bottom: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 40px rgba(245, 166, 35, 0.2);
+      opacity: 0;
+      transition: opacity 0.3s, bottom 0.3s, visibility 0.3s;
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 60px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Particles Container -->
+  <div id="tsparticles"></div>
+
+  <div class="container">
+
+    <!-- ====== PROFILE ====== -->
+    <div class="profile animate-in" style="animation-delay: 0.1s;">
+      <div class="avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <div class="avatar-inner">
+          <img src="https://pbs.twimg.com/profile_images/2006461524504719360/wEWgIfZc_400x400.jpg"
+            alt="Foto de perfil de Sebastian @El__Richy" fetchpriority="high" />
+        </div>
+      </div>
+
+      <div style="text-align:center;">
+        <div class="profile-name">Sebastian</div>
+        <div class="profile-handle">@El__Richy</div>
+      </div>
+
+      <div class="profile-badge">
+        <i class="fa-solid fa-chart-line"></i>
+        Trader Algorítmico &amp; Inversor
+      </div>
+
+      <p class="profile-bio">
+        <span>Algoritmos, mercados y estrategias reales.</span><br />
+        Todo lo que necesitas está aquí 👇
+      </p>
+    </div>
+
+    <!-- ====== REDES SOCIALES ====== -->
+    <div class="section-label animate-in" style="animation-delay: 0.2s;">
+      <span>Mis Redes</span>
+    </div>
+
+    <div class="social-links animate-in" style="animation-delay: 0.3s;">
+
+      <a href="https://instagram.com/el__richy" target="_blank" rel="noopener noreferrer" class="btn-social">
+        <span class="btn-icon icon-instagram"><i class="fa-brands fa-instagram"></i></span>
+        <div class="btn-text-content">
+          <span class="btn-label">Instagram</span>
+          <span class="btn-subtext">Perfil principal</span>
+        </div>
+        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+      </a>
+
+      <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer" class="btn-social">
+        <span class="btn-icon icon-twitter"><i class="fa-brands fa-x-twitter"></i></span>
+        <div class="btn-text-content">
+          <span class="btn-label">Twitter / X</span>
+          <span class="btn-subtext">Opiniones y reflexiones del mercado</span>
+        </div>
+        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+      </a>
+
+      <a href="https://t.me/+Otbu0ETWoyJlOTNh" target="_blank" rel="noopener noreferrer" class="btn-social">
+        <span class="btn-icon icon-telegram"><i class="fa-brands fa-telegram"></i></span>
+        <div class="btn-text-content">
+          <span class="btn-label">Telegram</span>
+          <span class="btn-subtext">Comunidad y operativa diaria</span>
+        </div>
+        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+      </a>
+
+      <a href="https://discord.gg/ruzKCqTB" target="_blank" rel="noopener noreferrer" class="btn-social">
+        <span class="btn-icon icon-discord"><i class="fa-brands fa-discord"></i></span>
+        <div class="btn-text-content">
+          <span class="btn-label">Discord</span>
+          <span class="btn-subtext">Análisis en temporalidades altas</span>
+        </div>
+        <i class="fa-solid fa-arrow-right btn-arrow"></i>
+      </a>
+
+    </div>
+
+    <!-- ====== DIVIDER ====== -->
+    <div class="divider animate-in" style="animation-delay: 0.4s;"></div>
+
+    <!-- ====== BROKERS & APPS ====== -->
+    <div class="section-label animate-in" style="animation-delay: 0.5s;">
+      <span>📊 Brokers &amp; Apps que uso</span>
+    </div>
+
+    <div class="broker-grid animate-in" style="animation-delay: 0.6s;">
+
+      <!-- Fila 1: Fórex Brokers -->
+      <a href="https://one.exnessonelink.com/a/0j8yvg9m0n" target="_blank" rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-exness"><i class="fa-solid fa-chart-bar"></i></span>
+        <span>Exness</span>
+        <span class="broker-tag">Broker Forex</span>
+      </a>
+
+      <a href="https://www.pepperstone.com" target="_blank" rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-pepper"><i class="fa-solid fa-fire"></i></span>
+        <span>Pepperstone</span>
+        <span class="broker-tag">Broker Forex</span>
+      </a>
+
+      <!-- Fila 2 -->
+      <a href="https://www.icmarkets.com" target="_blank" rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-ic"><i class="fa-solid fa-globe"></i></span>
+        <span>IC Markets</span>
+        <span class="broker-tag">Broker Forex</span>
+      </a>
+
+      <div class="copy-container">
+        <a href="https://play.google.com/store/apps/details?id=co.littio.app" target="_blank" rel="noopener noreferrer"
+          class="btn-broker" style="height: 100%; justify-content: space-between; padding: 18px 10px 12px;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <span class="broker-icon icon-littio"><i class="fa-solid fa-coins"></i></span>
+            <span>Littio</span>
+            <span class="broker-tag">Dólares digitales</span>
+          </div>
+          <div class="copy-badge" onclick="event.preventDefault(); event.stopPropagation(); copyText('J63C')">
+            <span>Código: J63C</span>
+            <i class="fa-regular fa-copy"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Fila 3 -->
+      <a href="https://app.hapi.trade/rewards?code=SEBRIV41&lang=es" target="_blank" rel="noopener noreferrer"
+        class="btn-broker">
+        <span class="broker-icon icon-hapi"><i class="fa-solid fa-wallet"></i></span>
+        <span>Hapi</span>
+        <span class="broker-tag">Inversiones</span>
+      </a>
+
+      <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00F6QWOO3Y" target="_blank"
+        rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-binance"><i class="fa-brands fa-bitcoin"></i></span>
+        <span>Binance</span>
+        <span class="broker-tag">Crypto Exchange</span>
+      </a>
+
+      <!-- Fila 4 -->
+      <a href="https://es.tradingview.com/pricing/?share_your_love=El_RichyTrader" target="_blank"
+        rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-tv"><i class="fa-solid fa-chart-line"></i></span>
+        <span>TradingView</span>
+        <span class="broker-tag">Análisis técnico</span>
+      </a>
+
+      <a href="https://nu.com.co/mgm/?channel=referral&id=EHoFHtHP9zNQhtchHue9HQ&medium=referral&msg=e4581&source=mgm&ticket_id=ticket_5&origin-mgm=settings-revamp"
+        target="_blank" rel="noopener noreferrer" class="btn-broker">
+        <span class="broker-icon icon-nu"><i class="fa-solid fa-credit-card"></i></span>
+        <span>NU</span>
+        <span class="broker-tag">Banco digital</span>
+      </a>
+
+    </div>
+
+    <!-- ====== DISCLAIMER & FOOTER ====== -->
+    <div class="disclaimer animate-in" style="animation-delay: 0.7s;">
+      ⚠️ El trading conlleva un alto nivel de riesgo. Los mercados pueden ser extremadamente volátiles. Este contenido
+      es educativo y no constituye asesoramiento financiero. Opera con responsabilidad.
+    </div>
+
+    <p class="footer animate-in" style="animation-delay: 0.8s;">
+      © 2025 Sebastian · <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer">@El__Richy</a>
+    </p>
+    <div id="toast">¡Código copiado con éxito! 📋</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@3.0.3/tsparticles.preset.links.bundle.min.js"></script>
+
+  <script>
+    // Initialize Particles background
+    tsParticles.load({
+      id: "tsparticles",
+      options: {
+        preset: "links",
+        background: { color: "transparent" },
+        particles: {
+          color: { value: "#f5a623" },
+          links: { color: "#f5a623", opacity: 0.15, distance: 150 },
+          move: { enable: true, speed: 1 },
+          number: { value: 30 },
+          opacity: { value: 0.2 },
+          size: { value: 1.5 },
+        }
+      }
+    });
+
+    // Initialize 3D Tilt Effect on buttons
+    VanillaTilt.init(document.querySelectorAll(".btn-social, .btn-broker"), {
+      max: 6,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.15,
+      scale: 1.02
+    });
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById("toast");
+        toast.className = "show";
+        setTimeout(() => {
+          toast.className = toast.className.replace("show", "");
+        }, 3000);
+      }).catch(err => {
+        console.error('Error al copiar: ', err);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
