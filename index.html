@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sebastian · @El__Richy | Trader Algorítmico</title>
 
-  <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https:;" />
+
 
   <meta name="description"
     content="Trader algorítmico. Datos, no predicciones. Todas las redes y recursos de Sebastian (@El__Richy)." />
@@ -26,7 +25,8 @@
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%23111111' /%3E%3Cpath d='M 140 360 L 240 240 L 300 290 L 380 160' stroke='%23F0611A' stroke-width='50' stroke-linecap='round' stroke-linejoin='round' fill='none' /%3E%3Ccircle cx='380' cy='160' r='25' fill='%23F0611A' /%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,28 +42,30 @@
       --orange-rgb: 240, 97, 26;
       --beige: #E8C99A;
       --cream: #F5F0E8;
-      
+
       /* Dark Theme Refinement */
       --bg-deep: #0C0C0C;
       --bg-surface: #161616;
-      --bg-card: rgba(255, 255, 255, 0.03);
-      --bg-card-hover: rgba(255, 255, 255, 0.06);
-      
-      --border: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(240, 97, 26, 0.4);
-      
+      --bg-card: rgba(255, 255, 255, 0.01);
+      --bg-card-hover: rgba(255, 255, 255, 0.02);
+
+      --border: rgba(255, 255, 255, 0.05);
+      --border-hover: rgba(255, 255, 255, 0.08);
+
       --text: #F5F0E8;
       --text-muted: #8F857D;
-      
+
       --radius: 16px;
       --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      
+
       --font-title: 'Space Grotesk', sans-serif;
       --font-body: 'DM Sans', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -90,9 +92,11 @@
     body::before {
       content: "";
       position: fixed;
-      top: -50%; right: -50%;
-      width: 200%; height: 200%;
-      background: 
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background:
         radial-gradient(circle at 50% 30%, rgba(var(--orange-rgb), 0.04) 0%, transparent 40%),
         radial-gradient(circle at 60% 70%, rgba(232, 201, 154, 0.02) 0%, transparent 40%);
       z-index: -2;
@@ -105,9 +109,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: -10 !important;
       pointer-events: none;
-      opacity: 0.6; /* Very subtle particles */
+      opacity: 0.6;
+    }
+
+    #tsparticles canvas {
+      z-index: -10 !important;
     }
 
     /* Universal Entrance Animation */
@@ -117,6 +125,7 @@
         transform: translateY(30px) scale(0.98);
         filter: blur(4px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -137,7 +146,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 1;
+      position: relative;
+      z-index: 10;
     }
 
     /* HEADER / PROFILE */
@@ -168,8 +178,13 @@
     }
 
     @keyframes spin-ring {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .avatar-inner {
@@ -183,7 +198,7 @@
       background: var(--bg-surface);
       transition: transform 0.4s var(--transition);
     }
-    
+
     .avatar-wrapper:hover .avatar-inner {
       transform: scale(0.96);
     }
@@ -299,18 +314,26 @@
       border: 1px solid var(--border);
       color: var(--text);
       text-decoration: none;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(5px);
+      box-shadow:
+        0 8px 36px rgba(0, 0, 0, 0.65),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1.5px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 7px 2.5px rgba(240, 97, 25, 0.05);
       transition: all var(--transition);
       cursor: pointer;
     }
-    
+
     /* Reveal inner highlight on hover */
     .btn-card::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.04) 0%, transparent 60%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.04) 0%, transparent 60%);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 1;
@@ -323,7 +346,7 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 30px -10px rgba(var(--orange-rgb), 0.15);
     }
-    
+
     .btn-card:hover::before {
       opacity: 1;
     }
@@ -344,7 +367,7 @@
       position: relative;
       z-index: 2;
     }
-    
+
     .btn-content {
       flex: 1;
       display: flex;
@@ -368,7 +391,7 @@
     }
 
     .btn-arrow {
-      color: rgba(255,255,255,0.2);
+      color: rgba(255, 255, 255, 0.2);
       font-size: 0.9rem;
       transition: transform var(--transition), color var(--transition);
       position: relative;
@@ -381,9 +404,21 @@
     }
 
     /* Icon Colors Gradient */
-    .icon-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #f77737); color: #fff; }
-    .icon-twitter { background: #0F0F0F; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
-    .icon-community { background: rgba(var(--orange-rgb), 0.15); color: var(--orange); }
+    .icon-instagram {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #f77737);
+      color: #fff;
+    }
+
+    .icon-twitter {
+      background: #0F0F0F;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-community {
+      background: rgba(var(--orange-rgb), 0.15);
+      color: var(--orange);
+    }
 
     /* BROKER GRID */
     .broker-grid {
@@ -404,7 +439,8 @@
     }
 
     .btn-broker .btn-icon {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
     }
 
     .btn-broker .btn-title {
@@ -415,20 +451,51 @@
       font-family: var(--font-mono);
       font-size: 0.65rem;
       color: var(--text-muted);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       padding: 3px 8px;
       border-radius: 4px;
     }
 
     /* Icon specific styles */
-    .icon-exness { background: rgba(0, 200, 150, 0.1); color: #00c896; }
-    .icon-pepper { background: rgba(255, 90, 90, 0.1); color: #ff5a5a; }
-    .icon-ic { background: rgba(50, 150, 255, 0.1); color: #3296ff; }
-    .icon-littio { background: rgba(100, 220, 180, 0.1); color: #64dcb4; }
-    .icon-hapi { background: rgba(130, 100, 255, 0.1); color: #8264ff; }
-    .icon-binance { background: rgba(240, 185, 11, 0.1); color: #f0b90b; }
-    .icon-tv { background: rgba(33, 150, 243, 0.1); color: #2196f3; }
-    .icon-nu { background: rgba(130, 0, 255, 0.1); color: #8200ff; }
+    .icon-exness {
+      background: rgba(0, 200, 150, 0.1);
+      color: #00c896;
+    }
+
+    .icon-pepper {
+      background: rgba(255, 90, 90, 0.1);
+      color: #ff5a5a;
+    }
+
+    .icon-ic {
+      background: rgba(50, 150, 255, 0.1);
+      color: #3296ff;
+    }
+
+    .icon-littio {
+      background: rgba(100, 220, 180, 0.1);
+      color: #64dcb4;
+    }
+
+    .icon-hapi {
+      background: rgba(130, 100, 255, 0.1);
+      color: #8264ff;
+    }
+
+    .icon-binance {
+      background: rgba(240, 185, 11, 0.1);
+      color: #f0b90b;
+    }
+
+    .icon-tv {
+      background: rgba(33, 150, 243, 0.1);
+      color: #2196f3;
+    }
+
+    .icon-nu {
+      background: rgba(130, 0, 255, 0.1);
+      color: #8200ff;
+    }
 
     /* COPY BADGE INSIDE LITTIO */
     .copy-badge {
@@ -478,6 +545,7 @@
       color: var(--text-muted);
       line-height: 1.5;
     }
+
     .affiliate-notice strong {
       color: var(--beige);
     }
@@ -522,7 +590,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    
+
     .footer-credits a:hover {
       color: var(--orange-light);
     }
@@ -551,7 +619,9 @@
       gap: 10px;
     }
 
-    #toast i { color: var(--orange); }
+    #toast i {
+      color: var(--orange);
+    }
 
     #toast.show {
       bottom: 40px;
@@ -560,8 +630,13 @@
     }
 
     @media (max-width: 440px) {
-      body { padding: 40px 16px 60px; }
-      .broker-grid { grid-template-columns: 1fr; }
+      body {
+        padding: 40px 16px 60px;
+      }
+
+      .broker-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -593,8 +668,8 @@
       </div>
 
       <p class="profile-bio">
-        <strong>Datos, no predicciones.</strong><br />
-        Algoritmos, mercados y proceso real — sin humo.
+        <strong>Datos, no fe.</strong><br />
+        Algoritmos, mercados y ventaja estadística real.
       </p>
 
       <p class="kiss-line">KISS ~ Keep It Simple, Stupid ⏳</p>
@@ -624,7 +699,8 @@
         <i class="fa-solid fa-arrow-right btn-arrow"></i>
       </a>
 
-      <a href="https://x.com/i/communities/1940457662853882307" target="_blank" rel="noopener noreferrer" class="btn-card hover-glow">
+      <a href="https://x.com/i/communities/1940457662853882307" target="_blank" rel="noopener noreferrer"
+        class="btn-card hover-glow">
         <span class="btn-icon icon-community"><i class="fa-solid fa-users"></i></span>
         <div class="btn-content">
           <span class="btn-title">Comunidad X</span>
@@ -643,25 +719,29 @@
     </div>
 
     <section class="broker-grid animate-in" style="--stagger: 6;">
-      <a href="https://one.exnessonelink.com/a/0j8yvg9m0n" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://one.exnessonelink.com/a/0j8yvg9m0n" target="_blank" rel="noopener noreferrer"
+        class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-exness"><i class="fa-solid fa-chart-bar"></i></span>
         <span class="btn-title">Exness</span>
         <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <a href="https://trk.pepperstonepartners.com/aff_c?offer_id=367&aff_id=43183" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://trk.pepperstonepartners.com/aff_c?offer_id=367&aff_id=43183" target="_blank"
+        rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-pepper"><i class="fa-solid fa-fire"></i></span>
         <span class="btn-title">Pepperstone</span>
         <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <a href="https://icmarkets.com/?camp=90442" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://icmarkets.com/?camp=90442" target="_blank" rel="noopener noreferrer"
+        class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-ic"><i class="fa-solid fa-globe"></i></span>
         <span class="btn-title">IC Markets</span>
         <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <a href="https://play.google.com/store/apps/details?id=co.littio.app" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://play.google.com/store/apps/details?id=co.littio.app" target="_blank" rel="noopener noreferrer"
+        class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-littio"><i class="fa-solid fa-coins"></i></span>
         <span class="btn-title">Littio</span>
         <span class="btn-tag">Dólares digitales</span>
@@ -671,25 +751,29 @@
         </div>
       </a>
 
-      <a href="https://app.hapi.trade/rewards?code=SEBRIV41&lang=es" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://app.hapi.trade/rewards?code=SEBRIV41&lang=es" target="_blank" rel="noopener noreferrer"
+        class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-hapi"><i class="fa-solid fa-wallet"></i></span>
         <span class="btn-title">Hapi</span>
         <span class="btn-tag">Inversiones</span>
       </a>
 
-      <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00F6QWOO3Y" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00F6QWOO3Y" target="_blank"
+        rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-binance"><i class="fa-brands fa-bitcoin"></i></span>
         <span class="btn-title">Binance</span>
         <span class="btn-tag">Crypto Exchange</span>
       </a>
 
-      <a href="https://es.tradingview.com/pricing/?share_your_love=El_RichyTrader" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://es.tradingview.com/pricing/?share_your_love=El_RichyTrader" target="_blank"
+        rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-tv"><i class="fa-solid fa-chart-line"></i></span>
         <span class="btn-title">TradingView</span>
         <span class="btn-tag">Análisis técnico</span>
       </a>
 
-      <a href="https://nu.com.co/mgm/?channel=referral&id=EHoFHtHP9zNQhtchHue9HQ&medium=referral&msg=e4581&source=mgm&ticket_id=ticket_5&origin-mgm=settings-revamp" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+      <a href="https://nu.com.co/mgm/?channel=referral&id=EHoFHtHP9zNQhtchHue9HQ&medium=referral&msg=e4581&source=mgm&ticket_id=ticket_5&origin-mgm=settings-revamp"
+        target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
         <span class="btn-icon icon-nu"><i class="fa-solid fa-credit-card"></i></span>
         <span class="btn-title">NU</span>
         <span class="btn-tag">Banco digital</span>
@@ -699,13 +783,15 @@
     <!-- AFFILIATE NOTICE -->
     <div class="affiliate-notice animate-in" style="--stagger: 7;">
       <i class="fa-solid fa-circle-info"></i>
-      <p>Estas son las herramientas que <strong>uso personalmente</strong>. Algunos enlaces son de afiliado — apoyas mi trabajo sin costo extra para ti. 🤝</p>
+      <p>Estas son las herramientas que <strong>uso personalmente</strong>. Algunos enlaces son de afiliado — apoyas mi
+        trabajo sin costo extra para ti. 🤝</p>
     </div>
 
     <!-- FOOTER -->
     <footer class="animate-in" style="--stagger: 8;">
       <p class="disclaimer">
-        ⚠️ El trading conlleva un alto nivel de riesgo. Los mercados pueden ser extremadamente volátiles. Este contenido es educativo y no constituye asesoramiento financiero. Opera con responsabilidad.
+        ⚠️ El trading conlleva un alto nivel de riesgo. Los mercados pueden ser extremadamente volátiles. Este contenido
+        es educativo y no constituye asesoramiento financiero. Opera con responsabilidad.
       </p>
       <p class="todo-mental">Todo es mental 🧠</p>
       <p class="footer-credits">
@@ -718,32 +804,75 @@
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@3.0.3/tsparticles.preset.links.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/2.12.0/tsparticles.bundle.min.js"></script>
 
   <script>
-    // Particles config - minimalist
-    tsParticles.load({
-      id: "tsparticles",
-      options: {
-        preset: "links",
-        background: { color: "transparent" },
-        particles: {
-          color: { value: "#F0611A" },
-          links: { color: "#F0611A", opacity: 0.08, distance: 180 },
-          move: { enable: true, speed: 0.5 },
-          number: { value: 18 },
-          opacity: { value: 0.1 },
-          size: { value: 1 },
+    // Particles config - minimalist but visible
+    tsParticles.load("tsparticles", {
+      fullScreen: {
+        enable: false
+      },
+      particles: {
+        number: {
+          value: 50
+        },
+        color: {
+          value: "#F0611A"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 1
+        },
+        size: {
+          value: 2
+        },
+        links: {
+          enable: true,
+          distance: 160,
+          color: "#F0611A",
+          opacity: 0.5,
+          width: 1.5
+        },
+        move: {
+          enable: true,
+          speed: 0.6,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: {
+            default: "bounce"
+          }
         }
-      }
+      },
+      interactivity: {
+        detectsOn: "canvas",
+        events: {
+          onHover: {
+            enable: true,
+            mode: "grab"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            links: {
+              opacity: 0.15
+            }
+          }
+        }
+      },
+      detectRetina: false
     });
 
     // Tilt Effect Initialization - smoother & less pronounced
     VanillaTilt.init(document.querySelectorAll(".btn-card"), {
-      max: 3, 
-      speed: 800, 
-      glare: true, 
-      "max-glare": 0.08, 
+      max: 3,
+      speed: 800,
+      glare: true,
+      "max-glare": 0.08,
       scale: 1.02,
       easing: "cubic-bezier(.03,.98,.52,.99)"
     });
@@ -770,4 +899,5 @@
   </script>
 
 </body>
+
 </html>
