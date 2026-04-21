@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0611A" />
+      <stop offset="100%" stop-color="#FF7A35" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="#111111" />
+  
+  <!-- Content - Minimalist Chart/Line motif -->
+  <g filter="url(#glow)">
+    <path d="M 140 360 L 240 240 L 300 290 L 380 160" 
+          stroke="url(#grad)" 
+          stroke-width="50" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none" />
+    <circle cx="380" cy="160" r="25" fill="#F0611A" />
+  </g>
+</svg>

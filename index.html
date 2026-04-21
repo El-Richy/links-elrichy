@@ -9,7 +9,8 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https:;" />
 
-  <meta name="description" content="Trader algorítmico. Datos, no predicciones. Todas las redes y recursos de Sebastian (@El__Richy)." />
+  <meta name="description"
+    content="Trader algorítmico. Datos, no predicciones. Todas las redes y recursos de Sebastian (@El__Richy)." />
   <meta name="author" content="Sebastian - @El__Richy" />
   <meta name="robots" content="index, follow" />
 
@@ -24,312 +25,543 @@
   <meta name="twitter:description" content="Datos, no predicciones. Algoritmos, mercados y proceso real." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80" />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --orange:        #F0611A;
-      --orange-light:  #FF7A35;
-      --orange-glow:   rgba(240, 97, 26, 0.28);
-      --beige:         #E8C99A;
-      --cream:         #F5F0E8;
-      --bg-deep:       #1A1A1A;
-      --bg-surface:    #2C2C2C;
-      --bg-card:       rgba(255, 255, 255, 0.04);
-      --bg-card-hover: rgba(240, 97, 26, 0.07);
-      --border:        rgba(255, 255, 255, 0.08);
-      --border-hover:  rgba(240, 97, 26, 0.55);
-      --text:          #F5F0E8;
-      --text-muted:    #8A7A6A;
-      --radius:        14px;
-      --transition:    260ms cubic-bezier(0.4, 0, 0.2, 1);
-      --font-title:    'Space Grotesk', sans-serif;
-      --font-body:     'DM Sans', sans-serif;
-      --font-mono:     'JetBrains Mono', monospace;
+      --orange: #F0611A;
+      --orange-light: #FF7A35;
+      --orange-rgb: 240, 97, 26;
+      --beige: #E8C99A;
+      --cream: #F5F0E8;
+      
+      /* Dark Theme Refinement */
+      --bg-deep: #0C0C0C;
+      --bg-surface: #161616;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --bg-card-hover: rgba(255, 255, 255, 0.06);
+      
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(240, 97, 26, 0.4);
+      
+      --text: #F5F0E8;
+      --text-muted: #8F857D;
+      
+      --radius: 16px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      --font-title: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
-    #tsparticles {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1; pointer-events: none;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
+    html {
+      scroll-behavior: smooth;
     }
-
-    .animate-in {
-      opacity: 0;
-      animation: fadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font-body);
       background-color: var(--bg-deep);
-      background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(240, 97, 26, 0.10) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 35% at 85% 105%, rgba(232, 201, 154, 0.05) 0%, transparent 60%);
       color: var(--text);
       min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 48px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 80px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Mesh Gradient Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%; right: -50%;
+      width: 200%; height: 200%;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(var(--orange-rgb), 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 60% 70%, rgba(232, 201, 154, 0.02) 0%, transparent 40%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.6; /* Very subtle particles */
+    }
+
+    /* Universal Entrance Animation */
+    @keyframes springUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .animate-in {
+      opacity: 0;
+      animation: springUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--stagger) * 100ms);
+      will-change: transform, opacity, filter;
     }
 
     .container {
-      width: 100%; max-width: 460px;
-      display: flex; flex-direction: column; align-items: center;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
     }
 
-    /* PROFILE */
-    .profile { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 36px; }
+    /* HEADER / PROFILE */
+    header.profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
 
-    .avatar-wrapper { position: relative; width: 108px; height: 108px; }
+    .avatar-wrapper {
+      position: relative;
+      width: 116px;
+      height: 116px;
+      margin-bottom: 8px;
+    }
 
     .avatar-ring {
-      position: absolute; inset: -3px; border-radius: 50%;
-      background: conic-gradient(var(--orange), var(--beige), var(--orange-light), var(--orange));
-      animation: spin-ring 7s linear infinite; z-index: 0;
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--bg-deep), var(--orange), var(--beige), var(--bg-deep));
+      animation: spin-ring 8s linear infinite;
+      z-index: 0;
+      opacity: 0.7;
     }
 
-    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
     .avatar-inner {
-      position: relative; width: 100%; height: 100%;
-      border-radius: 50%; border: 3px solid var(--bg-deep);
-      overflow: hidden; z-index: 1; background: var(--bg-surface);
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid var(--bg-deep);
+      overflow: hidden;
+      z-index: 1;
+      background: var(--bg-surface);
+      transition: transform 0.4s var(--transition);
+    }
+    
+    .avatar-wrapper:hover .avatar-inner {
+      transform: scale(0.96);
     }
 
-    .avatar-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .profile-name {
-      font-family: var(--font-title); font-size: 1.85rem; font-weight: 700;
-      letter-spacing: -0.5px; color: var(--cream); line-height: 1.1; text-align: center;
+      font-family: var(--font-title);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      line-height: 1.1;
     }
 
     .profile-handle {
-      font-family: var(--font-mono); font-size: 0.88rem; font-weight: 500;
-      color: var(--orange); letter-spacing: 0.3px; margin-top: -4px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--orange);
+      margin-top: 4px;
     }
 
     .profile-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
-      color: var(--beige); background: rgba(240, 97, 26, 0.08);
-      border: 1px solid rgba(240, 97, 26, 0.22);
-      border-radius: 999px; padding: 4px 14px; letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--beige);
+      background: rgba(240, 97, 26, 0.05);
+      border: 1px solid rgba(240, 97, 26, 0.15);
+      border-radius: 999px;
+      padding: 6px 16px;
+      backdrop-filter: blur(8px);
     }
 
-    .profile-badge i { color: var(--orange); font-size: 0.7rem; }
+    .profile-badge i {
+      color: var(--orange);
+    }
 
     .profile-bio {
-      font-family: var(--font-body); font-size: 0.93rem;
-      color: var(--text-muted); text-align: center; line-height: 1.65; max-width: 340px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 380px;
     }
 
-    .profile-bio strong { color: var(--cream); font-weight: 500; }
+    .profile-bio strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
 
     .kiss-line {
-      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 400;
-      color: rgba(138, 122, 106, 0.5); letter-spacing: 0.8px;
-      text-align: center; margin-top: -4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(143, 133, 125, 0.6);
+      letter-spacing: 0.05em;
     }
 
-    /* SECTION LABEL */
+    /* SECTIONS */
     .section-label {
-      width: 100%; display: flex; align-items: center;
-      gap: 10px; margin-bottom: 14px; margin-top: 6px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0 16px;
     }
 
-    .section-label::before, .section-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
     .section-label span {
-      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
-      color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 1.8px; white-space: nowrap;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
     }
 
-    /* SOCIAL BUTTONS */
-    .social-links { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
-
-    .btn-social {
-      display: flex; align-items: center; gap: 14px;
-      width: 100%; padding: 14px 20px;
-      border-radius: var(--radius);
-      background: var(--bg-card); border: 1px solid var(--border);
-      color: var(--text); text-decoration: none;
-      font-family: var(--font-body); font-size: 0.97rem; font-weight: 500;
-      transition: background var(--transition), border-color var(--transition),
-        transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-    }
-
-    .btn-social:hover {
-      background: var(--bg-card-hover); border-color: var(--border-hover);
-      transform: translateY(-2px) scale(1.012);
-      box-shadow: 0 8px 28px var(--orange-glow);
-    }
-
-    .btn-social:active { transform: translateY(0) scale(0.99); }
-
-    .btn-icon {
-      width: 36px; height: 36px; border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.05rem; flex-shrink: 0;
-    }
-
-    .btn-text-content { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-    .btn-label { font-family: var(--font-title); font-size: 0.97rem; font-weight: 600; color: var(--cream); line-height: 1.2; }
-    .btn-subtext { font-family: var(--font-body); font-size: 0.7rem; font-weight: 400; color: var(--text-muted); }
-
-    .btn-arrow {
-      color: var(--text-muted); font-size: 0.8rem;
-      transition: transform var(--transition), color var(--transition);
-    }
-
-    .btn-social:hover .btn-arrow { transform: translateX(3px); color: var(--orange); }
-
-    .icon-instagram  { background: linear-gradient(135deg, #833ab4, #fd1d1d, #f77737); color: #fff; }
-    .icon-twitter    { background: #000; color: #fff; }
-    .icon-community  { background: rgba(240, 97, 26, 0.18); color: var(--orange); }
-
-    /* BROKER GRID */
-    .broker-grid {
-      width: 100%; display: grid; grid-template-columns: 1fr 1fr;
-      gap: 9px; margin-bottom: 14px;
-    }
-
-    .btn-broker {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 7px; padding: 16px 10px; border-radius: var(--radius);
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      color: var(--text); text-decoration: none;
-      font-family: var(--font-title); font-size: 0.88rem; font-weight: 600;
-      text-align: center;
-      transition: background var(--transition), border-color var(--transition),
-        transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-    }
-
-    .btn-broker .broker-icon {
-      width: 32px; height: 32px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
-    }
-
-    .btn-broker .broker-name { font-family: var(--font-title); font-size: 0.88rem; font-weight: 600; color: var(--cream); }
-    .btn-broker .broker-tag  { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.4px; }
-
-    .btn-broker:hover {
-      background: rgba(240, 97, 26, 0.06); border-color: rgba(240, 97, 26, 0.38);
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(240, 97, 26, 0.12);
-    }
-
-    .btn-broker:active { transform: scale(0.98); }
-
-    .icon-exness  { background: rgba(0,200,150,0.14);   color: #00c896; }
-    .icon-pepper  { background: rgba(255,90,90,0.14);   color: #ff5a5a; }
-    .icon-ic      { background: rgba(50,150,255,0.14);  color: #3296ff; }
-    .icon-littio  { background: rgba(100,220,180,0.14); color: #64dcb4; }
-    .icon-hapi    { background: rgba(130,100,255,0.14); color: #8264ff; }
-    .icon-binance { background: rgba(240,185,11,0.14);  color: #f0b90b; }
-    .icon-tv      { background: rgba(33,150,243,0.14);  color: #2196f3; }
-    .icon-nu      { background: rgba(130,0,255,0.14);   color: #8200ff; }
-
-    /* AFFILIATE NOTICE */
-    .affiliate-notice {
-      width: 100%; display: flex; align-items: flex-start; gap: 10px;
-      padding: 11px 14px; border-radius: 10px;
-      background: rgba(240, 97, 26, 0.06);
-      border: 1px solid rgba(240, 97, 26, 0.15);
+    /* SOCIAL LINKS */
+    section.links-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       margin-bottom: 32px;
     }
 
-    .affiliate-notice i { color: var(--orange); font-size: 0.75rem; flex-shrink: 0; margin-top: 2px; }
+    /* Base Button Style with Glassmorphism & Hover Glow */
+    .btn-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+    
+    /* Reveal inner highlight on hover */
+    .btn-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .btn-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(var(--orange-rgb), 0.15);
+    }
+    
+    .btn-card:hover::before {
+      opacity: 1;
+    }
+
+    .btn-card:active {
+      transform: scale(0.98);
+    }
+
+    .btn-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .btn-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-title {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.1;
+    }
+
+    .btn-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn-arrow {
+      color: rgba(255,255,255,0.2);
+      font-size: 0.9rem;
+      transition: transform var(--transition), color var(--transition);
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-card:hover .btn-arrow {
+      transform: translateX(4px);
+      color: var(--orange);
+    }
+
+    /* Icon Colors Gradient */
+    .icon-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #f77737); color: #fff; }
+    .icon-twitter { background: #0F0F0F; color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+    .icon-community { background: rgba(var(--orange-rgb), 0.15); color: var(--orange); }
+
+    /* BROKER GRID */
+    .broker-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn-broker {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+      padding: 20px 12px;
+    }
+
+    .btn-broker .btn-icon {
+      width: 38px; height: 38px;
+    }
+
+    .btn-broker .btn-title {
+      font-size: 0.9rem;
+    }
+
+    .btn-broker .btn-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.03);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Icon specific styles */
+    .icon-exness { background: rgba(0, 200, 150, 0.1); color: #00c896; }
+    .icon-pepper { background: rgba(255, 90, 90, 0.1); color: #ff5a5a; }
+    .icon-ic { background: rgba(50, 150, 255, 0.1); color: #3296ff; }
+    .icon-littio { background: rgba(100, 220, 180, 0.1); color: #64dcb4; }
+    .icon-hapi { background: rgba(130, 100, 255, 0.1); color: #8264ff; }
+    .icon-binance { background: rgba(240, 185, 11, 0.1); color: #f0b90b; }
+    .icon-tv { background: rgba(33, 150, 243, 0.1); color: #2196f3; }
+    .icon-nu { background: rgba(130, 0, 255, 0.1); color: #8200ff; }
+
+    /* COPY BADGE INSIDE LITTIO */
+    .copy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--orange);
+      background: rgba(var(--orange-rgb), 0.1);
+      border: 1px solid rgba(var(--orange-rgb), 0.2);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 4px;
+      transition: all 0.25s ease;
+      position: relative;
+      z-index: 3;
+    }
+
+    .copy-badge:hover {
+      background: var(--orange);
+      color: var(--bg-deep);
+      transform: scale(1.05);
+    }
+
+    /* AFFILIATE NOTICE */
+    .affiliate-notice {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(var(--orange-rgb), 0.04);
+      border: 1px dashed rgba(var(--orange-rgb), 0.2);
+      margin-bottom: 32px;
+      width: 100%;
+    }
+
+    .affiliate-notice i {
+      color: var(--orange);
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
 
     .affiliate-notice p {
-      font-family: var(--font-body); font-size: 0.72rem;
-      color: var(--text-muted); line-height: 1.6;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .affiliate-notice strong {
+      color: var(--beige);
     }
 
-    .affiliate-notice p strong { color: var(--beige); font-weight: 500; }
-
-    /* DIVIDER */
+    /* SEPARATOR */
     .divider {
-      width: 100%; height: 1px;
+      width: 100%;
+      height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 4px 0 28px;
+      margin: 16px 0 32px;
     }
 
-    /* COPY BADGE */
-    .copy-container { position: relative; display: flex; flex-direction: column; width: 100%; }
-
-    .copy-badge {
-      margin-top: 8px;
-      font-family: var(--font-mono); font-size: 0.63rem; font-weight: 600;
-      color: var(--orange); background: rgba(240, 97, 26, 0.12);
-      border: 1px solid rgba(240, 97, 26, 0.28);
-      padding: 4px 10px; border-radius: 6px;
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 5px; cursor: pointer;
-      transition: all var(--transition); pointer-events: auto;
+    /* FOOTER */
+    footer {
+      width: 100%;
+      text-align: center;
     }
 
-    .copy-badge:hover { background: var(--orange); color: var(--bg-deep); transform: scale(1.04); }
-
-    /* DISCLAIMER & FOOTER */
     .disclaimer {
-      margin-top: 8px; margin-bottom: 16px;
-      font-family: var(--font-body); font-size: 0.66rem;
-      color: rgba(138, 122, 106, 0.65);
-      text-align: center; line-height: 1.55; max-width: 95%;
-      padding: 14px 16px 0; border-top: 1px solid var(--border);
+      font-size: 0.7rem;
+      color: rgba(143, 133, 125, 0.5);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      padding: 0 16px;
     }
 
     .todo-mental {
-      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500;
-      color: var(--text-muted); text-align: center;
-      margin-top: 20px; margin-bottom: 8px; letter-spacing: 0.2px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
     }
 
-    .footer {
-      font-family: var(--font-mono); font-size: 0.68rem;
-      color: rgba(138, 122, 106, 0.45);
-      letter-spacing: 0.4px; text-align: center;
+    .footer-credits {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(143, 133, 125, 0.4);
     }
 
-    .footer a { color: var(--orange); text-decoration: none; }
+    .footer-credits a {
+      color: var(--orange);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-credits a:hover {
+      color: var(--orange-light);
+    }
 
-    /* Toast */
+    /* TOAST */
     #toast {
-      visibility: hidden; min-width: 200px;
-      background-color: var(--bg-surface); color: var(--orange);
-      text-align: center; border-radius: 999px;
-      border: 1px solid var(--orange); padding: 12px 24px;
-      position: fixed; z-index: 1000; bottom: 40px;
-      font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500;
-      box-shadow: 0 10px 40px rgba(240, 97, 26, 0.18);
-      opacity: 0; transition: opacity 0.3s, bottom 0.3s, visibility 0.3s;
-      left: 50%; transform: translateX(-50%);
+      position: fixed;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-surface);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--orange-rgb), 0.4);
+      box-shadow: 0 10px 40px rgba(var(--orange-rgb), 0.15);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    #toast.show { visibility: visible; opacity: 1; bottom: 60px; }
+    #toast i { color: var(--orange); }
 
-    @media (max-width: 400px) {
-      body { padding: 36px 16px 50px; }
-      .profile-name { font-size: 1.6rem; }
-      .btn-social { padding: 12px 16px; }
-      .broker-grid { gap: 8px; }
-      .btn-broker { padding: 14px 8px; }
+    #toast.show {
+      bottom: 40px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 440px) {
+      body { padding: 40px 16px 60px; }
+      .broker-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -338,26 +570,26 @@
 
   <div id="tsparticles"></div>
 
-  <div class="container">
+  <main class="container">
 
     <!-- PROFILE -->
-    <div class="profile animate-in" style="animation-delay: 0.1s;">
+    <header class="profile animate-in" style="--stagger: 1;">
       <div class="avatar-wrapper">
         <div class="avatar-ring"></div>
         <div class="avatar-inner">
           <img src="https://pbs.twimg.com/profile_images/2006461524504719360/wEWgIfZc_400x400.jpg"
-            alt="Foto de perfil de Sebastian @El__Richy" fetchpriority="high" />
+            alt="Sebastian @El__Richy" fetchpriority="high" />
         </div>
       </div>
 
-      <div style="text-align:center;">
-        <div class="profile-name">Sebastian</div>
-        <div class="profile-handle">@El__Richy</div>
+      <div>
+        <h1 class="profile-name">Sebastian</h1>
+        <p class="profile-handle">@El__Richy</p>
       </div>
 
       <div class="profile-badge">
         <i class="fa-solid fa-chart-line"></i>
-        Trader Algorítmico &amp; Programador
+        <span>Trader Algorítmico &amp; Programador</span>
       </div>
 
       <p class="profile-bio">
@@ -366,140 +598,130 @@
       </p>
 
       <p class="kiss-line">KISS ~ Keep It Simple, Stupid ⏳</p>
-    </div>
+    </header>
 
-    <!-- REDES SOCIALES -->
-    <div class="section-label animate-in" style="animation-delay: 0.2s;">
+    <!-- SOCIAL LINKS -->
+    <div class="section-label animate-in" style="--stagger: 2;">
       <span>Mis Redes</span>
     </div>
 
-    <div class="social-links animate-in" style="animation-delay: 0.3s;">
-
-      <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer" class="btn-social">
+    <section class="links-group animate-in" style="--stagger: 3;">
+      <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer" class="btn-card hover-glow">
         <span class="btn-icon icon-twitter"><i class="fa-brands fa-x-twitter"></i></span>
-        <div class="btn-text-content">
-          <span class="btn-label">Twitter / X</span>
-          <span class="btn-subtext">Análisis, algoritmos y mercados en tiempo real</span>
+        <div class="btn-content">
+          <span class="btn-title">Twitter / X</span>
+          <span class="btn-desc">Análisis, algoritmos y mercados en tiempo real</span>
         </div>
         <i class="fa-solid fa-arrow-right btn-arrow"></i>
       </a>
 
-      <a href="https://instagram.com/el__richy" target="_blank" rel="noopener noreferrer" class="btn-social">
+      <a href="https://instagram.com/el__richy" target="_blank" rel="noopener noreferrer" class="btn-card hover-glow">
         <span class="btn-icon icon-instagram"><i class="fa-brands fa-instagram"></i></span>
-        <div class="btn-text-content">
-          <span class="btn-label">Instagram</span>
-          <span class="btn-subtext">Carruseles, datos y proceso real</span>
+        <div class="btn-content">
+          <span class="btn-title">Instagram</span>
+          <span class="btn-desc">Carruseles, datos y proceso real</span>
         </div>
         <i class="fa-solid fa-arrow-right btn-arrow"></i>
       </a>
 
-      <a href="https://x.com/i/communities/1940457662853882307" target="_blank" rel="noopener noreferrer" class="btn-social">
+      <a href="https://x.com/i/communities/1940457662853882307" target="_blank" rel="noopener noreferrer" class="btn-card hover-glow">
         <span class="btn-icon icon-community"><i class="fa-solid fa-users"></i></span>
-        <div class="btn-text-content">
-          <span class="btn-label">Comunidad X</span>
-          <span class="btn-subtext">Contenido de valor exclusivo para la comunidad</span>
+        <div class="btn-content">
+          <span class="btn-title">Comunidad X</span>
+          <span class="btn-desc">Contenido de valor exclusivo para la comunidad</span>
         </div>
         <i class="fa-solid fa-arrow-right btn-arrow"></i>
       </a>
-
-    </div>
+    </section>
 
     <!-- DIVIDER -->
-    <div class="divider animate-in" style="animation-delay: 0.4s;"></div>
+    <div class="divider animate-in" style="--stagger: 4;"></div>
 
     <!-- BROKERS & APPS -->
-    <div class="section-label animate-in" style="animation-delay: 0.5s;">
+    <div class="section-label animate-in" style="--stagger: 5;">
       <span>Brokers &amp; Apps que uso</span>
     </div>
 
-    <div class="broker-grid animate-in" style="animation-delay: 0.6s;">
-
-      <a href="https://one.exnessonelink.com/a/0j8yvg9m0n" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-exness"><i class="fa-solid fa-chart-bar"></i></span>
-        <span class="broker-name">Exness</span>
-        <span class="broker-tag">Broker Forex</span>
+    <section class="broker-grid animate-in" style="--stagger: 6;">
+      <a href="https://one.exnessonelink.com/a/0j8yvg9m0n" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-exness"><i class="fa-solid fa-chart-bar"></i></span>
+        <span class="btn-title">Exness</span>
+        <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <a href="https://trk.pepperstonepartners.com/aff_c?offer_id=367&aff_id=43183" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-pepper"><i class="fa-solid fa-fire"></i></span>
-        <span class="broker-name">Pepperstone</span>
-        <span class="broker-tag">Broker Forex</span>
+      <a href="https://trk.pepperstonepartners.com/aff_c?offer_id=367&aff_id=43183" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-pepper"><i class="fa-solid fa-fire"></i></span>
+        <span class="btn-title">Pepperstone</span>
+        <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <a href="https://icmarkets.com/?camp=90442" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-ic"><i class="fa-solid fa-globe"></i></span>
-        <span class="broker-name">IC Markets</span>
-        <span class="broker-tag">Broker Forex</span>
+      <a href="https://icmarkets.com/?camp=90442" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-ic"><i class="fa-solid fa-globe"></i></span>
+        <span class="btn-title">IC Markets</span>
+        <span class="btn-tag">Broker Forex</span>
       </a>
 
-      <div class="copy-container">
-        <a href="https://play.google.com/store/apps/details?id=co.littio.app" target="_blank" rel="noopener noreferrer"
-          class="btn-broker" style="height:100%; justify-content:space-between; padding:16px 10px 10px;">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:7px;">
-            <span class="broker-icon icon-littio"><i class="fa-solid fa-coins"></i></span>
-            <span class="broker-name">Littio</span>
-            <span class="broker-tag">Dólares digitales</span>
-          </div>
-          <div class="copy-badge" onclick="event.preventDefault(); event.stopPropagation(); copyText('J63C')">
-            <span>Código: J63C</span>
-            <i class="fa-regular fa-copy"></i>
-          </div>
-        </a>
-      </div>
-
-      <a href="https://app.hapi.trade/rewards?code=SEBRIV41&lang=es" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-hapi"><i class="fa-solid fa-wallet"></i></span>
-        <span class="broker-name">Hapi</span>
-        <span class="broker-tag">Inversiones</span>
+      <a href="https://play.google.com/store/apps/details?id=co.littio.app" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-littio"><i class="fa-solid fa-coins"></i></span>
+        <span class="btn-title">Littio</span>
+        <span class="btn-tag">Dólares digitales</span>
+        <div class="copy-badge" onclick="event.preventDefault(); event.stopPropagation(); copyText('J63C')">
+          <span>Código: J63C</span>
+          <i class="fa-regular fa-copy"></i>
+        </div>
       </a>
 
-      <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00F6QWOO3Y" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-binance"><i class="fa-brands fa-bitcoin"></i></span>
-        <span class="broker-name">Binance</span>
-        <span class="broker-tag">Crypto Exchange</span>
+      <a href="https://app.hapi.trade/rewards?code=SEBRIV41&lang=es" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-hapi"><i class="fa-solid fa-wallet"></i></span>
+        <span class="btn-title">Hapi</span>
+        <span class="btn-tag">Inversiones</span>
       </a>
 
-      <a href="https://es.tradingview.com/pricing/?share_your_love=El_RichyTrader" target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-tv"><i class="fa-solid fa-chart-line"></i></span>
-        <span class="broker-name">TradingView</span>
-        <span class="broker-tag">Análisis técnico</span>
+      <a href="https://www.binance.com/activity/referral-entry/CPA?ref=CPA_00F6QWOO3Y" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-binance"><i class="fa-brands fa-bitcoin"></i></span>
+        <span class="btn-title">Binance</span>
+        <span class="btn-tag">Crypto Exchange</span>
       </a>
 
-      <a href="https://nu.com.co/mgm/?channel=referral&id=EHoFHtHP9zNQhtchHue9HQ&medium=referral&msg=e4581&source=mgm&ticket_id=ticket_5&origin-mgm=settings-revamp"
-        target="_blank" rel="noopener noreferrer" class="btn-broker">
-        <span class="broker-icon icon-nu"><i class="fa-solid fa-credit-card"></i></span>
-        <span class="broker-name">NU</span>
-        <span class="broker-tag">Banco digital</span>
+      <a href="https://es.tradingview.com/pricing/?share_your_love=El_RichyTrader" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-tv"><i class="fa-solid fa-chart-line"></i></span>
+        <span class="btn-title">TradingView</span>
+        <span class="btn-tag">Análisis técnico</span>
       </a>
 
-    </div>
+      <a href="https://nu.com.co/mgm/?channel=referral&id=EHoFHtHP9zNQhtchHue9HQ&medium=referral&msg=e4581&source=mgm&ticket_id=ticket_5&origin-mgm=settings-revamp" target="_blank" rel="noopener noreferrer" class="btn-card btn-broker hover-glow">
+        <span class="btn-icon icon-nu"><i class="fa-solid fa-credit-card"></i></span>
+        <span class="btn-title">NU</span>
+        <span class="btn-tag">Banco digital</span>
+      </a>
+    </section>
 
     <!-- AFFILIATE NOTICE -->
-    <div class="affiliate-notice animate-in" style="animation-delay: 0.65s;">
+    <div class="affiliate-notice animate-in" style="--stagger: 7;">
       <i class="fa-solid fa-circle-info"></i>
-      <p>Estas son las herramientas que <strong>uso personalmente</strong>. Algunos enlaces son de afiliado — si te registras con ellos me apoyas sin ningún costo extra para ti. 🤝</p>
+      <p>Estas son las herramientas que <strong>uso personalmente</strong>. Algunos enlaces son de afiliado — apoyas mi trabajo sin costo extra para ti. 🤝</p>
     </div>
 
-    <!-- DISCLAIMER & FOOTER -->
-    <div class="disclaimer animate-in" style="animation-delay: 0.7s;">
-      ⚠️ El trading conlleva un alto nivel de riesgo. Los mercados pueden ser extremadamente volátiles. Este contenido es educativo y no constituye asesoramiento financiero. Opera con responsabilidad.
-    </div>
+    <!-- FOOTER -->
+    <footer class="animate-in" style="--stagger: 8;">
+      <p class="disclaimer">
+        ⚠️ El trading conlleva un alto nivel de riesgo. Los mercados pueden ser extremadamente volátiles. Este contenido es educativo y no constituye asesoramiento financiero. Opera con responsabilidad.
+      </p>
+      <p class="todo-mental">Todo es mental 🧠</p>
+      <p class="footer-credits">
+        © 2026 Sebastian · <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer">@El__Richy</a>
+      </p>
+    </footer>
 
-    <p class="todo-mental animate-in" style="animation-delay: 0.75s;">
-      Todo es mental 🧠
-    </p>
+    <div id="toast"><i class="fa-solid fa-check-circle"></i> ¡Código copiado!</div>
+  </main>
 
-    <p class="footer animate-in" style="animation-delay: 0.8s;">
-      © 2026 Sebastian · <a href="https://x.com/El__Richy" target="_blank" rel="noopener noreferrer">@El__Richy</a>
-    </p>
-
-    <div id="toast">¡Código copiado! 📋</div>
-  </div>
-
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@3.0.3/tsparticles.preset.links.bundle.min.js"></script>
 
   <script>
+    // Particles config - minimalist
     tsParticles.load({
       id: "tsparticles",
       options: {
@@ -507,24 +729,42 @@
         background: { color: "transparent" },
         particles: {
           color: { value: "#F0611A" },
-          links: { color: "#F0611A", opacity: 0.10, distance: 160 },
-          move: { enable: true, speed: 0.8 },
-          number: { value: 25 },
-          opacity: { value: 0.15 },
-          size: { value: 1.2 },
+          links: { color: "#F0611A", opacity: 0.08, distance: 180 },
+          move: { enable: true, speed: 0.5 },
+          number: { value: 18 },
+          opacity: { value: 0.1 },
+          size: { value: 1 },
         }
       }
     });
 
-    VanillaTilt.init(document.querySelectorAll(".btn-social, .btn-broker"), {
-      max: 5, speed: 400, glare: true, "max-glare": 0.10, scale: 1.015
+    // Tilt Effect Initialization - smoother & less pronounced
+    VanillaTilt.init(document.querySelectorAll(".btn-card"), {
+      max: 3, 
+      speed: 800, 
+      glare: true, 
+      "max-glare": 0.08, 
+      scale: 1.02,
+      easing: "cubic-bezier(.03,.98,.52,.99)"
     });
 
+    // Mouse Glow Effect for Cards
+    document.querySelectorAll('.hover-glow').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Toast Copy Logic
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
         const toast = document.getElementById("toast");
-        toast.className = "show";
-        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
       }).catch(err => console.error('Error al copiar: ', err));
     }
   </script>
